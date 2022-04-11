@@ -36,7 +36,7 @@ class LinkedList {
   }
 
   pop() {
-    // remove and return the tail
+    // return element from the end and delete it
     if (!this.head) {
       return undefined;
     }
@@ -59,7 +59,7 @@ class LinkedList {
   }
 
   shift() {
-    // remove and return the head
+    // return the head and remove it from the list
     if (!this.head) {
       return undefined;
     }
@@ -86,6 +86,65 @@ class LinkedList {
     this.length++;
     return this;
   }
+
+  get(index) {
+    // just return the value at given position
+    if (!this.head || index > this.length - 1 || index < 0) {
+      return null;
+    }
+    let position = 0;
+    let current = this.head;
+    while (position++ !== index) {
+      current = current.next;
+    }
+    return current;
+  }
+
+  set(index, value) {
+    // change the value at the given position
+    const foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.value = value;
+      return true;
+    }
+    return false;
+  }
+
+  insert(index, value) {
+    // add a new node at the given position
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+    else if (index === 0) {
+      return !!this.unshift(value);
+    }
+    else if (index === this.length) {
+      return !!this.push(value);
+    }
+    const prevNode = this.get(index - 1);
+    const newNode = new ListNode(value);
+    newNode.next = prevNode.next;
+    prevNode.next = newNode;
+    this.length++;
+    return true;
+  }
+
+  remove(index) {
+    // remove a new node at the given position
+    if (index < 0 || index > this.length - 1) {
+      return false;
+    }
+    else if (index === 0) {
+      return !!this.shift()
+    }
+    else if (index === this.length - 1) {
+      return !!this.pop();
+    }
+    const prevNode = this.get(index - 1);
+    prevNode.next = prevNode.next.next;
+    this.length--;
+    return true;
+  }
 }
 
 const list = new LinkedList();
@@ -104,4 +163,29 @@ console.log('Hello =', list.shift().value);
 list.unshift('Hello');
 
 console.log(list);
+
+console.log('Node at position 0', list.get(0));
+console.log('Node at position 2', list.get(2));
+
+console.log(list.set(1000, '!'));
+console.log(list.set(2, '!'));
+console.log('Node at position 2', list.get(2));
+
+list.insert(0, 'Very'); // start
+list.insert(2, ',');    // middle
+list.insert(5, '!');    // end
+printList(list);
+
+console.log(list.remove(0));  // start
+console.log(list.remove(1));  // middle
+console.log(list.remove(3));  // end
+printList(list);
+
+function printList(list) {
+  let str = '';
+  for (let i = 0; i < list.length; i++) {
+    str += list.get(i).value;
+  }
+  console.log(str);
+}
 
