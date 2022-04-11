@@ -145,7 +145,53 @@ class LinkedList {
     this.length--;
     return true;
   }
+
+  reverse() {
+    if (!this.head) {
+      return undefined;
+    }
+    const temp = this.tail;
+    this.tail = this.head;
+
+    let currItem = this.head;
+    let prevItem = null;  // will be tail
+    let nextItem = null;
+    while (currItem) {
+      nextItem = currItem.next; // save pointer to next node
+      currItem.next = prevItem; // curr node will look to the prev
+      prevItem = currItem;      // curr becomes previous
+      currItem = nextItem;      // go to the next node
+    }
+    this.head = temp;
+    return this;
+  }
+
+  traverse(func) {
+    if (!this.head) {
+      return undefined;
+    }
+    let curr = this.head;
+    while(curr) {
+      func(curr);
+      curr = curr.next;
+    }
+  }
+
+  print() {
+    if (!this.head) {
+      return undefined;
+    }
+    const arr = [];
+    let curr = this.head;
+    while(curr) {
+      arr.push(curr.value);
+      curr = curr.next;
+    }
+    console.log(arr);
+  }
 }
+const logElement = (element) => console.log(element.value);
+
 
 const list = new LinkedList();
 
@@ -181,6 +227,12 @@ console.log(list.remove(1));  // middle
 console.log(list.remove(3));  // end
 printList(list);
 
+const numList = new LinkedList();
+numList.push(1).push(2).push(3).push(4).push(5);
+console.log(numList.reverse());
+// numList.traverse(logElement);
+numList.print();
+
 function printList(list) {
   let str = '';
   for (let i = 0; i < list.length; i++) {
@@ -188,4 +240,5 @@ function printList(list) {
   }
   console.log(str);
 }
+
 
