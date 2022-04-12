@@ -1,6 +1,6 @@
 const logElement = (element) => console.log(element.value);
 
-export class ListNode {
+class ListNode {
   prev;
   next;
   value;
@@ -11,7 +11,7 @@ export class ListNode {
   }
 }
 
-export class DoublyLinkedList {
+class DoublyLinkedList {
   tail;
   head;
   length;
@@ -20,8 +20,182 @@ export class DoublyLinkedList {
     this.tail = null;
     this.length = 0;
   }
+
+  push(value) {
+    // add to the end of list
+    const newNode = new ListNode(value);
+    if (!this.head || this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length++;
+    return this;
+  }
+
+  pop() {
+    // return element from the end and delete it
+    if (!this.head || this.length === 0) {
+      return undefined;
+    }
+    const popped = this.tail;
+    if (this.length === 1) {
+      this.tail = null;
+      this.head = null;
+    }
+    else {
+      this.tail = popped.prev;
+      this.tail.next = null;
+      popped.prev = null;
+    }
+    this.length--;
+    return popped;
+  }
+
+  shift() {
+    // remove node from the beginning and return it
+    if (!this.head || this.length === 0) {
+      return undefined;
+    }
+    const shifted = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    }
+    else {
+      this.head = shifted.next;
+      this.head.prev = null;
+      shifted.next = null;
+    }
+    this.length--;
+    return shifted;
+  }
+
+  unshift(value) {
+    // insert value at the start
+    const newNode = new ListNode(value);
+    if (!this.head || this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      this.head.prev = newNode;
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    this.length++;
+    return this;
+  }
+
+  get(index) {
+    // just return the value at given position
+    if (index < 0 || index > this.length - 1) {
+      return undefined;
+    }
+    if (index < this.length / 2) {
+      let curr = this.head;
+      let count = 0;
+      while (count++ !== index) {
+        curr = curr.next;
+      }
+      return curr;
+    }
+    else {
+      let curr = this.tail;
+      let count = this.length - 1;
+      while (count-- !== index) {
+        curr = curr.prev;
+      }
+      return curr;
+    }
+  }
+
+  set(index, value) {
+    // change the value at the given position
+    const foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.value = value;
+      return true;
+    }
+    return false;
+  }
+
+  print() {
+    if (!this.head) {
+      return [];
+    }
+    const arr = [];
+    let curr = this.head;
+    while(curr) {
+      arr.push(curr.value);
+      curr = curr.next;
+    }
+    console.log(arr);
+  }
 }
 
 
-const list = new DoublyLinkedList();
+let list = new DoublyLinkedList();
+// push
+console.log('>> push');
+console.log(list.pop());
+list.push('Apple');
+list.push('Banana');
+list.push('Citrus');
+list.push('Kiwi');
+list.push('Mango');
+list.print();
 
+// pop
+console.log('\n>> pop');
+list.push('to pop');
+list.print();
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+list.print();
+
+// shift
+console.log('\n>> shift');
+list.push('Apple');
+list.push('Banana');
+list.push('Citrus');
+list.print();
+console.log(list.shift());
+console.log(list.shift());
+console.log(list.shift());
+console.log(list.shift());
+list.print();
+
+// unshift
+console.log('\n>> unshift');
+list = new DoublyLinkedList();
+list.unshift('Orange');
+list.unshift('Citrus');
+list.unshift('Banana');
+list.unshift('Apple');
+list.print();
+
+// get
+console.log('\n>> get');
+list.print();
+console.log(list.get(-1)?.value)
+console.log(list.get(0)?.value)
+console.log(list.get(1)?.value)
+console.log(list.get(2)?.value)
+console.log(list.get(3)?.value)
+console.log(list.get(4)?.value)
+
+// set
+console.log('\n>> set');
+list.print();
+console.log(list.set(2, 'fruit'))
+list.print();

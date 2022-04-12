@@ -59,7 +59,7 @@ export class SinglyLinkedList {
   }
 
   shift() {
-    // return the head and remove it from the list
+    // remove node from the beginning and return it
     if (!this.head) {
       return undefined;
     }
