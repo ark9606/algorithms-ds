@@ -111,7 +111,7 @@ export class SinglyLinkedList {
   }
 
   insert(index, value) {
-    // add a new node at the given position
+    // insert a new node at the given position
     if (index < 0 || index > this.length) {
       return false;
     }

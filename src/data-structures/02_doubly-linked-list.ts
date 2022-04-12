@@ -124,6 +124,57 @@ class DoublyLinkedList {
     return false;
   }
 
+  insert(index, value) {
+    // insert a new node at the given position
+    if (index < 0 || index > this.length) {
+      return undefined;
+    }
+    if (index === 0) {
+      this.unshift(value);
+      return true;
+    }
+    else if (index === this.length) {
+      this.push(value);
+      return true;
+    }
+    const newNode = new ListNode(value);
+    const beforeNode = this.get(index - 1);
+    const afterNode = beforeNode.next;
+
+    newNode.prev = beforeNode;
+    beforeNode.next = newNode;
+
+    newNode.next = afterNode;
+    afterNode.prev = newNode;
+    this.length++;
+    return true;
+  }
+
+  remove(index) {
+    // remove a new node at the given position
+    if (index < 0 || index > this.length - 1) {
+      return undefined;
+    }
+    if (index === 0) {
+      this.shift();
+      return true;
+    }
+    else if (index === this.length - 1) {
+      this.pop();
+      return true;
+    }
+    const foundNode = this.get(index);
+    const beforeNode = foundNode.prev;
+    const afterNode = foundNode.next;
+
+    beforeNode.next = afterNode;
+    afterNode.prev = beforeNode;
+    foundNode.prev = null;
+    foundNode.next = null;
+    this.length--;
+    return foundNode;
+  }
+
   print() {
     if (!this.head) {
       return [];
@@ -199,3 +250,23 @@ console.log('\n>> set');
 list.print();
 console.log(list.set(2, 'fruit'))
 list.print();
+
+
+// insert
+console.log('\n>> insert');
+list.print();
+list.insert(0, 'water');  // start
+list.insert(3, 'fire');   // middle
+list.insert(6, 'ground'); // end
+list.print();
+
+// remove
+console.log('\n>> remove');
+list.print();
+list.remove(0)
+list.remove(2)
+list.remove(4)
+list.remove(2)
+list.remove(999)
+list.print();
+
