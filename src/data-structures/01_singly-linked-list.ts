@@ -1,4 +1,4 @@
-class ListNode {
+export class ListNode {
   value;
   next;
   constructor(val) {
@@ -7,7 +7,7 @@ class ListNode {
   }
 }
 
-class LinkedList {
+export class SinglyLinkedList {
   tail;
   head;
   length;
@@ -193,7 +193,7 @@ class LinkedList {
 const logElement = (element) => console.log(element.value);
 
 
-const list = new LinkedList();
+const list = new SinglyLinkedList();
 
 list.push('Hello');
 list.push('world');
@@ -227,7 +227,7 @@ console.log(list.remove(1));  // middle
 console.log(list.remove(3));  // end
 printList(list);
 
-const numList = new LinkedList();
+const numList = new SinglyLinkedList();
 numList.push(1).push(2).push(3).push(4).push(5);
 console.log(numList.reverse());
 // numList.traverse(logElement);
