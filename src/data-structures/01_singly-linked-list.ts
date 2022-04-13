@@ -1,4 +1,4 @@
-export class ListNode {
+class LNode {
   value;
   next;
   constructor(val) {
@@ -7,7 +7,7 @@ export class ListNode {
   }
 }
 
-export class SinglyLinkedList {
+class SinglyLinkedList {
   tail;
   head;
   length;
@@ -19,7 +19,7 @@ export class SinglyLinkedList {
 
   push(value) {
     // add to the end of list
-    const node = new ListNode(value);
+    const node = new LNode(value);
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -69,12 +69,13 @@ export class SinglyLinkedList {
     if (this.length === 0) {
       this.tail = null;
     }
+    currHead.next = null;
     return currHead;
   }
 
   unshift(val) {
     // insert value at the start
-    const newNode = new ListNode(val);
+    const newNode = new LNode(val);
     if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
@@ -122,7 +123,7 @@ export class SinglyLinkedList {
       return !!this.push(value);
     }
     const prevNode = this.get(index - 1);
-    const newNode = new ListNode(value);
+    const newNode = new LNode(value);
     newNode.next = prevNode.next;
     prevNode.next = newNode;
     this.length++;
@@ -190,42 +191,43 @@ export class SinglyLinkedList {
     console.log(arr);
   }
 }
-const logElement = (element) => console.log(element.value);
+const logEl = (element) => console.log(element.value);
 
 
-const list = new SinglyLinkedList();
+const list0 = new SinglyLinkedList();
 
-list.push('Hello');
-list.push('world');
-list.push('!');
+list0.push('Hello');
+list0.push('world');
+list0.push('!');
 
-console.log('Removed', list.pop().value, list.pop().value);
+console.log('Removed', list0.pop().value, list0.pop().value);
 
-list.push('there');
-list.push('!!!');
+list0.push('there');
+list0.push('!!!');
 
-console.log('Hello =', list.shift().value);
+console.log('\n>> shift');
+console.log('Hello =', list0.shift());
 
-list.unshift('Hello');
+list0.unshift('Hello');
 
-console.log(list);
+console.log(list0);
 
-console.log('Node at position 0', list.get(0));
-console.log('Node at position 2', list.get(2));
+console.log('Node at position 0', list0.get(0));
+console.log('Node at position 2', list0.get(2));
 
-console.log(list.set(1000, '!'));
-console.log(list.set(2, '!'));
-console.log('Node at position 2', list.get(2));
+console.log(list0.set(1000, '!'));
+console.log(list0.set(2, '!'));
+console.log('Node at position 2', list0.get(2));
 
-list.insert(0, 'Very'); // start
-list.insert(2, ',');    // middle
-list.insert(5, '!');    // end
-printList(list);
+list0.insert(0, 'Very'); // start
+list0.insert(2, ',');    // middle
+list0.insert(5, '!');    // end
+printList(list0);
 
-console.log(list.remove(0));  // start
-console.log(list.remove(1));  // middle
-console.log(list.remove(3));  // end
-printList(list);
+console.log(list0.remove(0));  // start
+console.log(list0.remove(1));  // middle
+console.log(list0.remove(3));  // end
+printList(list0);
 
 const numList = new SinglyLinkedList();
 numList.push(1).push(2).push(3).push(4).push(5);
