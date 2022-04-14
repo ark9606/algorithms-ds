@@ -1,4 +1,4 @@
-class QueueNode {
+export class Node {
   value;
   next;
   constructor(val) {
@@ -7,7 +7,7 @@ class QueueNode {
   }
 }
 
-class Queue {
+export class Queue {
   last;
   first;
   size;
@@ -20,7 +20,7 @@ class Queue {
   // same as push in singly-linked list
   enqueue(value) {
     // add to the end of queue
-    const node = new QueueNode(value);
+    const node = new Node(value);
     if (!this.first) {
       this.first = node;
       this.last = node;

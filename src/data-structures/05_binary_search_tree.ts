@@ -9,7 +9,7 @@ class TreeNode {
   }
 }
 
-class BinarySearchTree {
+export class BinarySearchTree {
   root;
   constructor() {
     this.root = null;
@@ -67,13 +67,13 @@ class BinarySearchTree {
 }
 
 const tree = new BinarySearchTree();
-// tree.root = new TreeNode(18);
 tree.insert(10);
 tree.insert(6);
 tree.insert(15);
 tree.insert(8);
 tree.insert(3);
 tree.insert(3);
+tree.insert(20);
 console.log(tree.root.left);
 
 console.log(tree.contains(10));

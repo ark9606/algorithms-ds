@@ -4,7 +4,7 @@
     "esModuleInterop": false,
     "target": "ES2020",
     "sourceMap": true,
-    "moduleResolution": "node",
+//    "moduleResolution": "",
     "removeComments": true,
     "outDir": "dist",
     "noImplicitAny": false,
