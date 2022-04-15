@@ -131,7 +131,7 @@ class SinglyLinkedList {
   }
 
   remove(index) {
-    // remove a new node at the given position
+    // remove a node at the given position
     if (index < 0 || index > this.length - 1) {
       return false;
     }

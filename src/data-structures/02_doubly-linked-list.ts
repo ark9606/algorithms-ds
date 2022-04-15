@@ -1,5 +1,3 @@
-const logElement = (element) => console.log(element.value);
-
 class ListNode {
   prev;
   next;
