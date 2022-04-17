@@ -64,20 +64,23 @@ export class Queue {
   }
 }
 
-const queue = new Queue();
-queue.print();
-console.log(queue.enqueue('first'));
-console.log(queue.enqueue('second'));
-console.log(queue.enqueue('third'));
+function main() {
+  const queue = new Queue();
+  queue.print();
+  console.log(queue.enqueue('first'));
+  console.log(queue.enqueue('second'));
+  console.log(queue.enqueue('third'));
 
-queue.print();
-console.log(queue.dequeue());
-queue.print();
-console.log(queue.dequeue());
-queue.print();
-console.log(queue.dequeue());
-queue.print();
-console.log(queue.dequeue());
-queue.print();
+  queue.print();
+  console.log(queue.dequeue());
+  queue.print();
+  console.log(queue.dequeue());
+  queue.print();
+  console.log(queue.dequeue());
+  queue.print();
+  console.log(queue.dequeue());
+  queue.print();
+};
+// main();
 
 
