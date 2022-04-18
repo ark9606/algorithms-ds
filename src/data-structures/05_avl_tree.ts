@@ -6,6 +6,8 @@ export class TreeNode {
   right: TreeNode;
   bf: number;
   height: number;
+  // count of entries of the same value
+  entriesCount: number;
 
   constructor(value) {
     this.value = value;
@@ -13,6 +15,7 @@ export class TreeNode {
     this.right = null;
     this.height = 0;
     this.bf = null;
+    this.entriesCount = 1;
   }
 }
 
@@ -25,14 +28,14 @@ export class AVLTree {
   }
 
   // borrowed from the BinarySearchTree
-  contains(value) {
+  find(value) {
     if (!this.root) {
       return false;
     }
     let curr = this.root;
     while (curr) {
       if (curr.value === value) {
-        return true;
+        return curr;
       }
       if (value > curr.value) {
         curr = curr.right;
@@ -47,9 +50,10 @@ export class AVLTree {
     if (typeof value !== 'number') {
       return null;
     }
-    // duplicated values ignored
-    if (this.contains(value)) {
-      return false;
+    const found = this.find(value);
+    if (found) {
+      found.entriesCount++;
+      return;
     }
     this.root = this._insert(this.root, value);
     this.size++;
@@ -213,10 +217,15 @@ export class AVLTree {
 
 console.log('\nAVL tree:')
 const tree = new AVLTree();
-tree.insert(3);
-tree.insert(5);
 tree.insert(7);
+tree.insert(4);
 tree.insert(1);
-tree.insert(9);
-tree.insert(5); // duplicates
-console.log(tree.searchBFS());
+tree.insert(0);
+tree.insert(2);
+tree.insert(6);
+tree.insert(8);
+tree.insert(3);
+tree.insert(4); // duplicate
+tree.insert(5);
+tree.insert(7); // duplicate
+console.log(tree.searchBFS().join(', '));
