@@ -167,8 +167,11 @@ export class AVLTree {
     if (typeof value !== 'number') {
       return false;
     }
-    // logic to find same as in find method
-    let found = this.root;
+    return this._remove(this.root, value);
+  }
+
+  private _remove(startNode: TreeNode, value): boolean {
+    let found = startNode;
     let parent = null;
     while (found) {
       if (found.value === value) {
@@ -240,16 +243,16 @@ export class AVLTree {
     // found node has both child
     else if (found.left && found.right) {
       let smallestRight = found.right;
+      // we need to save pointer to the subtree for the further recursive remove
+      // so we could update the correct pointer
+      let parentOfSmallest = parent;
       while (smallestRight.left) {
+        parentOfSmallest = smallestRight;
         smallestRight = smallestRight.left;
       }
       found.value = smallestRight.value;
-      // todo recursive remove of smallestRight.value in its subtree
-      console.log(smallestRight);
+      this._remove(parentOfSmallest, smallestRight.value);
     }
-    // todo update
-    // todo balance
-    return true;
   }
 
   // borrowed from BinarySearchTreeBFS
@@ -304,13 +307,13 @@ export class AVLTree {
 // tree3.insert(4);
 // console.log(tree3.searchBFS());
 
-console.log('\nAVL tree remove:')
-const tree4 = new AVLTree();
-tree4.insert(7);
-tree4.insert(4);
-tree4.insert(1);
-tree4.insert(9);
-tree4.insert(0);
+// console.log('\nAVL tree remove:');
+// const tree4 = new AVLTree();
+// tree4.insert(7);
+// tree4.insert(4);
+// tree4.insert(1);
+// tree4.insert(9);
+// tree4.insert(0);
 
 // console.log('\nAVL tree removed 0 (has no siblings):');
 // console.log(tree4.searchBFS().join(', '));
@@ -330,15 +333,7 @@ tree4.insert(0);
 // tree4.remove(1);
 // console.log(tree4.searchBFS().join(', '));
 // tree4.insert(1);
-
-
-
-console.log('\nAVL tree removed 4 (root, has both child):');
-console.log(tree4.searchBFS().join(', '));
-tree4.remove(4);
-console.log(tree4.searchBFS().join(', '));
-tree4.insert(4);
-
+//
 // console.log('\nAVL tree removed 7 (root, has only left child):');
 // const tree5 = new AVLTree();
 // tree5.insert(7);
@@ -347,8 +342,8 @@ tree4.insert(4);
 // tree5.remove(7);
 // console.log(tree5.searchBFS().join(', '));
 // tree5.insert(7);
-
-
+//
+//
 // console.log('\nAVL tree removed 7 (root, has only right child):');
 // const tree6 = new AVLTree();
 // tree6.insert(7);
@@ -357,6 +352,26 @@ tree4.insert(4);
 // tree6.remove(7);
 // console.log(tree6.searchBFS().join(', '));
 // tree6.insert(7);
+
+
+console.log('\nAVL tree removed 4 (root, has both child):');
+const tree7 = new AVLTree();
+tree7.insert(7);
+tree7.insert(4);
+tree7.insert(1);
+tree7.insert(9);
+tree7.insert(0);
+tree7.insert(5);
+tree7.insert(3);
+console.log(tree7.searchBFS().join(', '));
+tree7.remove(4);
+console.log(tree7.searchBFS().join(', '));
+tree7.insert(4);
+
+
+// todo delete node with both child but not root
+console.log('\nAVL tree removed 4 (root, has both child):');
+
 
 
 
