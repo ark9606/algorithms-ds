@@ -27,25 +27,6 @@ export class AVLTree {
     this.size = 0;
   }
 
-  // borrowed from the BinarySearchTree
-  find(value) {
-    if (!this.root) {
-      return false;
-    }
-    let curr = this.root;
-    while (curr) {
-      if (curr.value === value) {
-        return curr;
-      }
-      if (value > curr.value) {
-        curr = curr.right;
-      } else {
-        curr = curr.left;
-      }
-    }
-    return false;
-  }
-
   public insert(value: number): boolean {
     if (typeof value !== 'number') {
       return null;
@@ -163,6 +144,114 @@ export class AVLTree {
     return oldRight;
   }
 
+  // borrowed from the BinarySearchTree
+  find(value) {
+    if (!this.root) {
+      return false;
+    }
+    let curr = this.root;
+    while (curr) {
+      if (curr.value === value) {
+        return curr;
+      }
+      if (value > curr.value) {
+        curr = curr.right;
+      } else {
+        curr = curr.left;
+      }
+    }
+    return false;
+  }
+
+  public remove(value) {
+    if (typeof value !== 'number') {
+      return false;
+    }
+    // logic to find same as in find method
+    let found = this.root;
+    let parent = null;
+    while (found) {
+      if (found.value === value) {
+        // found node to remove and its parent
+        break;
+      }
+      if (value > found.value) {
+        parent = found;
+        found = found.right;
+      } else {
+        parent = found;
+        found = found.left;
+      }
+    }
+    if (!found) {
+      return false;
+    }
+    // if found node is leaf (has no children)
+    if (!found.left && !found.right) {
+      if (!parent) {
+        // we need to remove the root node - which is the only node in tree
+        this.root = null;
+        return true;
+      }
+      else if (parent.left?.value === value) {
+        parent.left = null;
+      }
+      else if (parent.right?.value === value) {
+        parent.right = null;
+      }
+      this.update(parent);
+      this.balance(parent);
+      return true;
+    }
+    // found node has only left child
+    else if (found.left && !found.right ) {
+      if (!parent) {
+        // we need to remove the root node - which has only left child
+        this.root = found.left;
+        return true;
+      }
+      else if (parent.left?.value === value) {
+        parent.left = found.left;
+      }
+      else if (parent.right?.value === value) {
+        parent.right = found.left;
+      }
+      this.update(parent);
+      this.balance(parent);
+      return true;
+    }
+    // found node has only right child
+    else if (!found.left && found.right) {
+      if (!parent) {
+        // we need to remove the root node - which has only right child
+        this.root = found.right;
+        return true;
+      }
+      else if (parent.left?.value === value) {
+        parent.right = found.right;
+      }
+      else if (parent.right?.value === value) {
+        parent.right = found.right;
+      }
+      this.update(parent);
+      this.balance(parent);
+      return true;
+    }
+    // found node has both child
+    else if (found.left && found.right) {
+      let smallestRight = found.right;
+      while (smallestRight.left) {
+        smallestRight = smallestRight.left;
+      }
+      found.value = smallestRight.value;
+      // todo recursive remove of smallestRight.value in its subtree
+      console.log(smallestRight);
+    }
+    // todo update
+    // todo balance
+    return true;
+  }
+
   // borrowed from BinarySearchTreeBFS
   searchBFS() {
     const visited = [];
@@ -215,17 +304,74 @@ export class AVLTree {
 // tree3.insert(4);
 // console.log(tree3.searchBFS());
 
-console.log('\nAVL tree:')
-const tree = new AVLTree();
-tree.insert(7);
-tree.insert(4);
-tree.insert(1);
-tree.insert(0);
-tree.insert(2);
-tree.insert(6);
-tree.insert(8);
-tree.insert(3);
-tree.insert(4); // duplicate
-tree.insert(5);
-tree.insert(7); // duplicate
-console.log(tree.searchBFS().join(', '));
+console.log('\nAVL tree remove:')
+const tree4 = new AVLTree();
+tree4.insert(7);
+tree4.insert(4);
+tree4.insert(1);
+tree4.insert(9);
+tree4.insert(0);
+
+// console.log('\nAVL tree removed 0 (has no siblings):');
+// console.log(tree4.searchBFS().join(', '));
+// tree4.remove(0);
+// console.log(tree4.searchBFS().join(', '));
+// tree4.insert(0);
+//
+//
+// console.log('\nAVL tree removed 1 (has left child):');
+// console.log(tree4.searchBFS().join(', '));
+// tree4.remove(1);
+// console.log(tree4.searchBFS().join(', '));
+// tree4.insert(1);
+//
+// console.log('\nAVL tree removed 7 (has right child):');
+// console.log(tree4.searchBFS().join(', '));
+// tree4.remove(1);
+// console.log(tree4.searchBFS().join(', '));
+// tree4.insert(1);
+
+
+
+console.log('\nAVL tree removed 4 (root, has both child):');
+console.log(tree4.searchBFS().join(', '));
+tree4.remove(4);
+console.log(tree4.searchBFS().join(', '));
+tree4.insert(4);
+
+// console.log('\nAVL tree removed 7 (root, has only left child):');
+// const tree5 = new AVLTree();
+// tree5.insert(7);
+// tree5.insert(4);
+// console.log(tree5.searchBFS().join(', '));
+// tree5.remove(7);
+// console.log(tree5.searchBFS().join(', '));
+// tree5.insert(7);
+
+
+// console.log('\nAVL tree removed 7 (root, has only right child):');
+// const tree6 = new AVLTree();
+// tree6.insert(7);
+// tree6.insert(8);
+// console.log(tree6.searchBFS().join(', '));
+// tree6.remove(7);
+// console.log(tree6.searchBFS().join(', '));
+// tree6.insert(7);
+
+
+
+
+// console.log('\nAVL tree:')
+// const tree = new AVLTree();
+// tree.insert(7);
+// tree.insert(4);
+// tree.insert(1);
+// tree.insert(0);
+// tree.insert(2);
+// tree.insert(6);
+// tree.insert(8);
+// tree.insert(3);
+// tree.insert(4); // duplicate
+// tree.insert(5);
+// tree.insert(7); // duplicate
+// console.log(tree.searchBFS().join(', '));
