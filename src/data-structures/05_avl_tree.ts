@@ -167,12 +167,12 @@ export class AVLTree {
     if (typeof value !== 'number') {
       return false;
     }
-    return this._remove(this.root, value);
+    return this._remove(this.root, null, value);
   }
 
-  private _remove(startNode: TreeNode, value): boolean {
+  private _remove(startNode: TreeNode, _parent: TreeNode | null, value): boolean {
     let found = startNode;
-    let parent = null;
+    let parent = _parent;
     while (found) {
       if (found.value === value) {
         // found node to remove and its parent
@@ -244,14 +244,14 @@ export class AVLTree {
     else if (found.left && found.right) {
       let smallestRight = found.right;
       // we need to save pointer to the subtree for the further recursive remove
-      // so we could update the correct pointer
-      let parentOfSmallest = parent;
+      // so, we could update the correct pointer
+      let parentOfSmallest = found;
       while (smallestRight.left) {
         parentOfSmallest = smallestRight;
         smallestRight = smallestRight.left;
       }
       found.value = smallestRight.value;
-      this._remove(parentOfSmallest, smallestRight.value);
+      this._remove(smallestRight, parentOfSmallest, smallestRight.value);
     }
   }
 
@@ -278,84 +278,92 @@ export class AVLTree {
   }
 }
 
-// const tree0 = new AVLTree();
-// console.log('\nLeft-left case:')
-// tree0.insert(5);
-// tree0.insert(4);
-// tree0.insert(3);
-// console.log(tree0.searchBFS());
+const tree0 = new AVLTree();
+console.log('\nLeft-left case:')
+tree0.insert(5);
+tree0.insert(4);
+tree0.insert(3);
+console.log(tree0.searchBFS());
 
-// console.log('\nRight-right case:')
-// const tree1 = new AVLTree();
-// tree1.insert(3);
-// tree1.insert(4);
-// tree1.insert(5);
-// console.log(tree1.searchBFS());
+console.log('\nRight-right case:')
+const tree1 = new AVLTree();
+tree1.insert(3);
+tree1.insert(4);
+tree1.insert(5);
+console.log(tree1.searchBFS());
 
 
-// console.log('\nLeft-right case:')
-// const tree2 = new AVLTree();
-// tree2.insert(5);
-// tree2.insert(3);
-// tree2.insert(4);
-// console.log(tree2.searchBFS());
+console.log('\nLeft-right case:')
+const tree2 = new AVLTree();
+tree2.insert(5);
+tree2.insert(3);
+tree2.insert(4);
+console.log(tree2.searchBFS());
 
-// console.log('\nRight-left case:')
-// const tree3 = new AVLTree();
-// tree3.insert(3);
-// tree3.insert(5);
-// tree3.insert(4);
-// console.log(tree3.searchBFS());
+console.log('\nRight-left case:')
+const tree3 = new AVLTree();
+tree3.insert(3);
+tree3.insert(5);
+tree3.insert(4);
+console.log(tree3.searchBFS());
 
-// console.log('\nAVL tree remove:');
-// const tree4 = new AVLTree();
-// tree4.insert(7);
-// tree4.insert(4);
-// tree4.insert(1);
-// tree4.insert(9);
-// tree4.insert(0);
+console.log('\nAVL tree remove:');
+let tree4 = new AVLTree();
+tree4.insert(7);
+tree4.insert(4);
+tree4.insert(1);
+tree4.insert(9);
+tree4.insert(0);
 
-// console.log('\nAVL tree removed 0 (has no siblings):');
-// console.log(tree4.searchBFS().join(', '));
-// tree4.remove(0);
-// console.log(tree4.searchBFS().join(', '));
-// tree4.insert(0);
-//
-//
-// console.log('\nAVL tree removed 1 (has left child):');
-// console.log(tree4.searchBFS().join(', '));
-// tree4.remove(1);
-// console.log(tree4.searchBFS().join(', '));
-// tree4.insert(1);
-//
-// console.log('\nAVL tree removed 7 (has right child):');
-// console.log(tree4.searchBFS().join(', '));
-// tree4.remove(1);
-// console.log(tree4.searchBFS().join(', '));
-// tree4.insert(1);
-//
-// console.log('\nAVL tree removed 7 (root, has only left child):');
-// const tree5 = new AVLTree();
-// tree5.insert(7);
-// tree5.insert(4);
-// console.log(tree5.searchBFS().join(', '));
-// tree5.remove(7);
-// console.log(tree5.searchBFS().join(', '));
-// tree5.insert(7);
-//
-//
-// console.log('\nAVL tree removed 7 (root, has only right child):');
-// const tree6 = new AVLTree();
-// tree6.insert(7);
-// tree6.insert(8);
-// console.log(tree6.searchBFS().join(', '));
-// tree6.remove(7);
-// console.log(tree6.searchBFS().join(', '));
-// tree6.insert(7);
+console.log('\nAVL tree removed 0 (has no siblings):');
+console.log(tree4.searchBFS().join(', '));
+tree4.remove(0);
+console.log(tree4.searchBFS().join(', '));
+
+
+console.log('\nAVL tree removed 1 (has left child):');
+tree4 = new AVLTree();
+tree4.insert(7);
+tree4.insert(4);
+tree4.insert(1);
+tree4.insert(9);
+tree4.insert(0);
+console.log(tree4.searchBFS().join(', '));
+tree4.remove(1);
+console.log(tree4.searchBFS().join(', '));
+
+console.log('\nAVL tree removed 7 (has right child):');
+tree4 = new AVLTree();
+tree4.insert(7);
+tree4.insert(4);
+tree4.insert(1);
+tree4.insert(9);
+tree4.insert(0);
+console.log(tree4.searchBFS().join(', '));
+tree4.remove(7);
+console.log(tree4.searchBFS().join(', '));
+
+
+console.log('\nAVL tree removed 7 (root, has only left child):');
+const tree5 = new AVLTree();
+tree5.insert(7);
+tree5.insert(4);
+console.log(tree5.searchBFS().join(', '));
+tree5.remove(7);
+console.log(tree5.searchBFS().join(', '));
+
+
+console.log('\nAVL tree removed 7 (root, has only right child):');
+const tree6 = new AVLTree();
+tree6.insert(7);
+tree6.insert(8);
+console.log(tree6.searchBFS().join(', '));
+tree6.remove(7);
+console.log(tree6.searchBFS().join(', '));
 
 
 console.log('\nAVL tree removed 4 (root, has both child):');
-const tree7 = new AVLTree();
+let tree7 = new AVLTree();
 tree7.insert(7);
 tree7.insert(4);
 tree7.insert(1);
@@ -366,12 +374,22 @@ tree7.insert(3);
 console.log(tree7.searchBFS().join(', '));
 tree7.remove(4);
 console.log(tree7.searchBFS().join(', '));
+
+
+console.log('\nAVL tree removed 7 (node has both child):');
+tree7 = new AVLTree();
+tree7.insert(7);
 tree7.insert(4);
-
-
-// todo delete node with both child but not root
-console.log('\nAVL tree removed 4 (root, has both child):');
-
+tree7.insert(1);
+tree7.insert(9);
+tree7.insert(0);
+tree7.insert(5);
+tree7.insert(3);
+tree7.insert(8);
+tree7.insert(10);
+console.log(tree7.searchBFS().join(', '));
+tree7.remove(7);
+console.log(tree7.searchBFS().join(', '));
 
 
 
