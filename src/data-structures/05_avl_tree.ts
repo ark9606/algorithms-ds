@@ -231,7 +231,7 @@ export class AVLTree {
         return true;
       }
       else if (parent.left?.value === value) {
-        parent.right = found.right;
+        parent.left = found.right;
       }
       else if (parent.right?.value === value) {
         parent.right = found.right;
