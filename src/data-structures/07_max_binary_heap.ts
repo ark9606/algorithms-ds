@@ -40,47 +40,34 @@ class MaxBinaryHeap {
 
   private siftDown() {
     let parentInd = 0;
+    const element = this.values[parentInd];
     const length = this.values.length;
     while (true) {
       const leftChildInd = 2 * parentInd + 1;
       const rightChildInd = 2 * parentInd + 2;
-      const leftBiggerThenParent = leftChildInd < length && this.values[parentInd] < this.values[leftChildInd];
-      const rightBiggerThenParent = rightChildInd < length && this.values[parentInd] < this.values[rightChildInd];
-      if (leftBiggerThenParent && rightBiggerThenParent) {
-        const leftTheBiggest = this.values[leftChildInd] > this.values[rightChildInd];
-        if (leftTheBiggest) {
-          // swap with left
-          let temp = this.values[parentInd];
-          this.values[parentInd] = this.values[leftChildInd];
-          this.values[leftChildInd] = temp;
-          parentInd = leftChildInd;
-        }
-        else {
-          // swap with right
-          let temp = this.values[parentInd];
-          this.values[parentInd] = this.values[rightChildInd];
-          this.values[rightChildInd] = temp;
-          parentInd = rightChildInd;
+      let leftChild, rightChild;
+      let swapInd = null;
+      if (leftChildInd < length) {
+        leftChild = this.values[leftChildInd];
+        if (leftChild > element) {
+          // save ind to swap with left
+          swapInd = leftChildInd;
         }
       }
-      else if (leftBiggerThenParent && !rightBiggerThenParent) {
-        // swap with left
-        let temp = this.values[parentInd];
-        this.values[parentInd] = this.values[leftChildInd];
-        this.values[leftChildInd] = temp;
-        parentInd = leftChildInd;
+      if (rightChildInd < length) {
+        rightChild = this.values[rightChildInd];
+        if ((swapInd === null && rightChild > element) || (swapInd !== null && rightChild > leftChild)) {
+          // save ind to swap with right if it is bigger than parent or bigger than left
+          swapInd = rightChildInd;
+        }
       }
-      else if (rightBiggerThenParent && !leftBiggerThenParent) {
-        // swap with right
-        let temp = this.values[parentInd];
-        this.values[parentInd] = this.values[rightChildInd];
-        this.values[rightChildInd] = temp;
-        parentInd = rightChildInd;
-      }
-      else if (!leftBiggerThenParent && !rightBiggerThenParent) {
+      if (swapInd === null) {
         // leave parent on its place
         break;
       }
+      this.values[parentInd] = this.values[swapInd];
+      this.values[swapInd] = element;
+      parentInd = swapInd;
     }
   }
 
