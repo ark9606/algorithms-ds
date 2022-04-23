@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/data-structures/07_max_binary_heap.ts"
+    "start": "ts-node src/data-structures/heaps/08_priority_queue.ts"
   },
   "repository": {
     "type": "git",
