@@ -1,4 +1,4 @@
-import {Queue} from "./04_queue";
+import {Queue} from "../04_queue";
 
 export class TreeNode {
   value: number;

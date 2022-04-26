@@ -1,5 +1,5 @@
 import {BinarySearchTree} from "./05_binary_search_tree";
-import {Queue} from "./04_queue";
+import {Queue} from "../04_queue";
 
 export class BinarySearchTreeBFS extends BinarySearchTree {
   // breadth-first search
