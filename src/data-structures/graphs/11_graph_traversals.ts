@@ -2,7 +2,7 @@ import {Graph} from "./10_graph";
 import {Stack} from "../03_stack";
 import {Queue} from "../04_queue";
 
-export class Graph2 extends Graph {
+export class GraphT extends Graph {
 
   depthFirstRecursive(startVertex: string): any {
     const results: any[] = [];
@@ -75,7 +75,7 @@ export class Graph2 extends Graph {
   }
 }
 
-const graph = new Graph2();
+const graph = new GraphT();
 graph.addVertex('A');
 graph.addVertex('B');
 graph.addVertex('C');
