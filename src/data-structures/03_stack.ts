@@ -7,7 +7,7 @@ class StackNode {
   }
 }
 
-class Stack {
+export class Stack {
   last;
   first;
   size;

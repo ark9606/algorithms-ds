@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/data-structures/heaps/08_priority_queue.ts"
+    "start": "ts-node src/data-structures/graphs/11_graph_traversals.ts"
   },
   "repository": {
     "type": "git",

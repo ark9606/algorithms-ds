@@ -1,6 +1,6 @@
-class Graph {
+export class Graph {
   // adjacency list
-  private readonly adjList: any;
+  protected readonly adjList: any;
 
   constructor() {
     this.adjList = {};
@@ -42,19 +42,19 @@ class Graph {
   }
 }
 
-const graph = new Graph();
-graph.addVertex('Tokyo');
-graph.addVertex('NewYork');
-graph.addVertex('Paris');
-graph.addVertex('Tokyo');
-graph.addVertex('Miami');
-
-graph.addEdge('Tokyo', 'Paris');
-graph.addEdge('NewYork', 'Miami');
-
-graph.removeEdge('NewYork', 'Miami');
-
-graph.addEdge('NewYork', 'Miami');
-graph.addEdge('NewYork', 'Paris');
-graph.removeVertex('NewYork');
-console.log(graph);
+// const graph = new Graph();
+// graph.addVertex('Tokyo');
+// graph.addVertex('NewYork');
+// graph.addVertex('Paris');
+// graph.addVertex('Tokyo');
+// graph.addVertex('Miami');
+//
+// graph.addEdge('Tokyo', 'Paris');
+// graph.addEdge('NewYork', 'Miami');
+//
+// graph.removeEdge('NewYork', 'Miami');
+//
+// graph.addEdge('NewYork', 'Miami');
+// graph.addEdge('NewYork', 'Paris');
+// graph.removeVertex('NewYork');
+// console.log(graph);
