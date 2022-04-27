@@ -1,5 +1,6 @@
 import {Graph} from "./10_graph";
 import {Stack} from "../03_stack";
+import {Queue} from "../04_queue";
 
 export class Graph2 extends Graph {
 
@@ -50,6 +51,28 @@ export class Graph2 extends Graph {
     }
     return results;
   }
+
+  breadthFirstIterative(startVertex: string): any {
+    const results = [];
+    const visited = {};
+    const queue = new Queue();
+
+    visited[startVertex] = true;
+    queue.enqueue(startVertex);
+
+    while (queue.size > 0) {
+      const currVertex = queue.dequeue();
+      results.push(currVertex);
+
+      for (const neighbor of this.adjList[currVertex]) {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.enqueue(neighbor);
+        }
+      }
+    }
+    return results;
+  }
 }
 
 const graph = new Graph2();
@@ -76,6 +99,7 @@ graph.addEdge("E","F")
 //        \   /
 //          F
 
+
 console.log('\nDFS (recursive):');
 console.log(graph.depthFirstRecursive('A'));
 // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
@@ -83,3 +107,7 @@ console.log(graph.depthFirstRecursive('A'));
 console.log('\nDFS (iterative):');
 console.log(graph.depthFirstIterative('A'));
 // [ 'A', 'C', 'E', 'F', 'D', 'B' ]
+
+console.log('\nBSF (iterative):');
+console.log(graph.breadthFirstIterative('A'));
+// [ 'A', 'B', 'C', 'D', 'E', 'F' ]
