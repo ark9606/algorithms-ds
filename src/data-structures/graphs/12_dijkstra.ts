@@ -96,16 +96,16 @@ export class Graph {
       }
       visited[currVert] = true;
     }
-    // go from end to start vertex
+    // go from end vertex to start vertex
+    const reversed = [];
     let temp = endVert;
-    let stack = new Stack();
     while (temp) {
-      stack.push(temp);
+      reversed.push(temp);
       temp = previous[temp];
     }
     const res = [];
-    while (stack.size > 0) {
-      res.push(stack.pop());
+    for (let i = reversed.length - 1; i >= 0; i--) {
+      res.push(reversed[i]);
     }
     return res;
   }
@@ -156,3 +156,9 @@ graph.addEdge(VERT.E, VERT.F, 1);
 
 console.log('\nShortest path from A to E:');
 console.log(graph.shortestPath(VERT.A, VERT.E));
+
+console.log('\nShortest path from A to F:');
+console.log(graph.shortestPath(VERT.A, VERT.F));
+
+console.log('\nShortest path from B to D:');
+console.log(graph.shortestPath(VERT.B, VERT.D));
