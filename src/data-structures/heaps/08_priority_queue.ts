@@ -3,7 +3,7 @@ class QNode {
   constructor(public value: any, public priority: number) { }
 }
 
-class PriorityQueue {
+export class PriorityQueue {
   values: QNode[];
   constructor() {
     this.values = [];
@@ -85,39 +85,39 @@ class PriorityQueue {
   }
 }
 
-const queue = new PriorityQueue();
-queue.enqueue('val-4', 4);
-queue.enqueue('val-3', 3);
-queue.enqueue('val-10', 10);
-queue.enqueue('val-1', 1);
-// no order for same priority
-queue.enqueue('val-7', 7);
-queue.enqueue('val-77', 7);
-queue.enqueue('val-15', 15);
-queue.enqueue('val-12', 12);
-queue.enqueue('val-18', 18);
-queue.enqueue('val-20', 20);
-console.log('Original heap: ' + queue);
-
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
-console.log('\nExtracted min: ' + queue.dequeue());
-console.log('Heap: ' + queue);
+// const queue = new PriorityQueue();
+// queue.enqueue('val-4', 4);
+// queue.enqueue('val-3', 3);
+// queue.enqueue('val-10', 10);
+// queue.enqueue('val-1', 1);
+// // no order for same priority
+// queue.enqueue('val-7', 7);
+// queue.enqueue('val-77', 7);
+// queue.enqueue('val-15', 15);
+// queue.enqueue('val-12', 12);
+// queue.enqueue('val-18', 18);
+// queue.enqueue('val-20', 20);
+// console.log('Original heap: ' + queue);
+//
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);
+// console.log('\nExtracted min: ' + queue.dequeue());
+// console.log('Heap: ' + queue);

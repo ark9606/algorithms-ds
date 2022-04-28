@@ -1,3 +1,5 @@
+import {PriorityQueue} from "../heaps/08_priority_queue";
+
 export class Graph {
   protected readonly adjList: any;
 
@@ -45,6 +47,31 @@ export class Graph {
       delete this.adjList[vertex];
     }
   }
+
+  public shortestPath(startVert: string, endVert: string): any {
+    // distances from startVert to all others
+    const distances = {};
+    // todo what store ???
+    const queue = new PriorityQueue();
+    // previous vertex for each vertex to get to the end
+    const previous = {};
+    for (const vertex in this.adjList) {
+      // init, as we did not go any vertex yet
+      previous[vertex] = null;
+
+      if (vertex === startVert) {
+        // distance to same vertex is 0
+        distances[vertex] = 0;
+        // to begin with startV
+        queue.enqueue(vertex, 0);
+        continue;
+      }
+      // set the max possible distance to every vertex
+      distances[vertex] = Infinity;
+      queue.enqueue(vertex, Infinity);
+    }
+    return [];
+  }
 }
 
 // const graph = new Graph();
@@ -63,3 +90,32 @@ export class Graph {
 // graph.addEdge('NewYork', 'Paris', 0);
 // graph.removeVertex('NewYork');
 // console.log(graph);
+
+const VERT = {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D',
+  E: 'E',
+  F: 'F',
+};
+
+const graph = new Graph();
+graph.addVertex(VERT.A);
+graph.addVertex(VERT.B);
+graph.addVertex(VERT.C);
+graph.addVertex(VERT.D);
+graph.addVertex(VERT.E);
+graph.addVertex(VERT.F);
+
+graph.addEdge(VERT.A, VERT.B, 4);
+graph.addEdge(VERT.A, VERT.C, 2);
+graph.addEdge(VERT.B, VERT.E, 3);
+graph.addEdge(VERT.C, VERT.D, 2);
+graph.addEdge(VERT.C, VERT.F, 4);
+graph.addEdge(VERT.D, VERT.F, 1);
+graph.addEdge(VERT.D, VERT.E, 3);
+graph.addEdge(VERT.E, VERT.F, 1);
+
+console.log('\nShortest path from A to E:');
+console.log(graph.shortestPath(VERT.A, VERT.E));
