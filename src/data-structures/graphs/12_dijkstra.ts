@@ -1,4 +1,5 @@
 import {PriorityQueue} from "../heaps/08_priority_queue";
+import {Stack} from "../03_stack";
 
 export class Graph {
   protected readonly adjList: any;
@@ -51,7 +52,7 @@ export class Graph {
   public shortestPath(startVert: string, endVert: string): any {
     // distances from startVert to all others
     const distances = {};
-    // todo what store ???
+    // store vertices with distances to it from start vertex as priorities
     const queue = new PriorityQueue();
     // previous vertex for each vertex to get to the end
     const previous = {};
@@ -70,7 +71,43 @@ export class Graph {
       distances[vertex] = Infinity;
       queue.enqueue(vertex, Infinity);
     }
-    return [];
+
+    const visited = {};
+
+    while (queue.size > 0) {
+      const currVert = queue.dequeue();
+      // const currVert = curr.value;
+      // const currVertDist = curr.priority;
+      if (currVert === endVert) {
+        break;
+      }
+      // loop through all its neighbors
+      for (const neighbor in this.adjList[currVert]) {
+        if (visited[neighbor]) {
+          continue;
+        }
+        // distance from the very start vertex to curr-neighbor
+        let totalDist = distances[currVert] + this.adjList[currVert][neighbor];
+        if (totalDist < distances[neighbor]) {
+          distances[neighbor] = totalDist;
+          previous[neighbor] = currVert;
+          queue.enqueue(neighbor, totalDist);
+        }
+      }
+      visited[currVert] = true;
+    }
+    // go from end to start vertex
+    let temp = endVert;
+    let stack = new Stack();
+    while (temp) {
+      stack.push(temp);
+      temp = previous[temp];
+    }
+    const res = [];
+    while (stack.size > 0) {
+      res.push(stack.pop());
+    }
+    return res;
   }
 }
 

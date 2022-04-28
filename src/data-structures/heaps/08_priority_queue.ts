@@ -80,6 +80,10 @@ export class PriorityQueue {
     }
   }
 
+  public get size(): number {
+    return this.values.length;
+  }
+
   toString() {
     return this.values.map(node => `{${node.value},${node.priority}}`).join(' ');
   }
