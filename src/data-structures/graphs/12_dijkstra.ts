@@ -56,6 +56,8 @@ export class Graph {
     const queue = new PriorityQueue();
     // previous vertex for each vertex to get to the end
     const previous = {};
+
+    // build up initial state
     for (const vertex in this.adjList) {
       // init, as we did not go any vertex yet
       previous[vertex] = null;
@@ -73,9 +75,10 @@ export class Graph {
     }
 
     const visited = {};
-
+    // as long as there is something to visit
     while (queue.size > 0) {
-      const currVert = queue.dequeue();
+      // vertex with the smallest distance
+      const currVert = queue.dequeue().value;
       // const currVert = curr.value;
       // const currVertDist = curr.priority;
       if (currVert === endVert) {
@@ -86,28 +89,27 @@ export class Graph {
         if (visited[neighbor]) {
           continue;
         }
-        // distance from the very start vertex to curr-neighbor
+        // distance from the very start to curr-neighbor/next-node
         let totalDist = distances[currVert] + this.adjList[currVert][neighbor];
         if (totalDist < distances[neighbor]) {
+          // updating new smallest distance to neighbor
           distances[neighbor] = totalDist;
+          // updating previous - How we got to neighbor
           previous[neighbor] = currVert;
+          // add to queue with new (smallest - high) priority
           queue.enqueue(neighbor, totalDist);
         }
       }
       visited[currVert] = true;
     }
     // go from end vertex to start vertex
-    const reversed = [];
+    const path = [];
     let temp = endVert;
     while (temp) {
-      reversed.push(temp);
+      path.push(temp);
       temp = previous[temp];
     }
-    const res = [];
-    for (let i = reversed.length - 1; i >= 0; i--) {
-      res.push(reversed[i]);
-    }
-    return res;
+    return path.reverse();
   }
 }
 

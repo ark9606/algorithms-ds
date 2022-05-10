@@ -33,7 +33,7 @@ export class PriorityQueue {
   }
 
   // like extractMax
-  dequeue(): any {
+  dequeue(): QNode {
     if (this.values.length === 0) {
       return null;
     }
@@ -44,7 +44,7 @@ export class PriorityQueue {
     }
     this.values[0] = last;
     this.siftDown();
-    return min.value;
+    return min;
   }
 
   private siftDown() {
