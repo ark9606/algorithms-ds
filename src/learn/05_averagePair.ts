@@ -4,10 +4,32 @@ function averagePair(array, avg) {
   if (array.length === 0) {
     return false;
   }
-  for (let i = 0; i < array.length; i++) {
-    const element = array[i];
-    
+  /*
+    sum = 2 * avg
+    first = 0
+    second = last
+    loop
+      first + second == sum => return true
+      first + second >  sum => second = prev of second
+      first + second <  sum => first = next of first
+    return false
+  */
+  const sum = avg * 2;
+  let first = 0;
+  let second = array.length - 1;
+  while (first !== second) {
+    const pairSum = array[first] + array[second];
+    if (pairSum === sum) {
+      return true;
+    }
+    else if (pairSum > sum) {
+      second--;
+    }
+    else if (pairSum < sum) {
+      first++;
+    }
   }
+  return false;
 }
 
 console.log( averagePair([1, 2, 3], 2.5) );                     // true
